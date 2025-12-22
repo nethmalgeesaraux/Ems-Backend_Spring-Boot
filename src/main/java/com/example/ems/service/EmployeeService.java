@@ -20,4 +20,12 @@ public class EmployeeService {
     public List<Employee> getAllEmployees() {
         return employeeRepository.findAll();
     }
+
+    public void deleteEmployee(Long id) {
+        if(!employeeRepository.existsById(id)) {
+            throw new IllegalArgumentException("Employee with id " + id + " does not exist.");
+        }
+        employeeRepository.deleteById(id);
+    }
+
 }
