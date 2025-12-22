@@ -32,4 +32,17 @@ public class EmployeeService {
         return employeeRepository.findById(id).orElse(null);
     }
 
+    public Employee updateEmployee(Long id, Employee updatedEmployee) {
+        Employee existingEmployee = employeeRepository.findById(id).orElse(null);
+        if (existingEmployee == null) {
+            throw new IllegalArgumentException("Employee with id " + id + " does not exist.");
+        }
+        existingEmployee.setName(updatedEmployee.getName());
+        existingEmployee.setEmail(updatedEmployee.getEmail());
+        existingEmployee.setPhoneNumber(updatedEmployee.getPhoneNumber());
+        existingEmployee.setDepartment(updatedEmployee.getDepartment());
+        return employeeRepository.save(existingEmployee);
+    }
+
+
 }
