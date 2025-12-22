@@ -28,12 +28,20 @@ public class EmployeeController {
     }
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<?> deleteEmployee(@PathVariable Long id) {
-        try {
-            employeeService.deleteEmployee(id);
-            return new ResponseEntity<>("Employee with id " + id + " deleted successfully.", HttpStatus.OK);
-        } catch (IllegalArgumentException e) {
+       try {
+              employeeService.deleteEmployee(id);
+              return new ResponseEntity<>("employee with id " + id + " deleted successfully.", HttpStatus.OK);
+         } catch (IllegalArgumentException e) {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+       }
+    }
+    @GetMapping("/getById/{id}")
+    public ResponseEntity<?> getEmployeeById(@PathVariable Long id) {
+        Employee employee = employeeService.getEmployeeById(id);
+        if (employee == null) {
+            return ResponseEntity.notFound().build();
         }
+        return ResponseEntity.ok(employee);
     }
 
 }
